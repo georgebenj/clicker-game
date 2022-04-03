@@ -32,7 +32,8 @@
           <div class="row justify-content-center">
             <div class="bee-shop col-md-3">
               <h5 id="bee-amount" style="color:#050505">0</h5>
-              <button type="button" onclick="buy(ba1, bc1, bv1, bees, beeprice)" class="btn btn-secondary">Bee</button>
+              <img src="/assets/img/bee.png" onclick="buy(ba1, bc1, bv1, gameData.bees, gameData.beeprice)"/>
+
               <h5 id="bee-cost" style="color:#fda917">75</h5>
 
               <!--bee's honey per second-->
@@ -41,7 +42,7 @@
   
             <div class="super-shop col-md-3">
               <h5 id="super-amount" style="color:#050505">0</h5>
-              <button type="button" onclick="buy(ba2, bc2, bv2, superbees, superbeeprice)" class="btn btn-primary">Super Bee</button>
+              <img src="/assets/img/superbee.png" onclick="buy(ba2, bc2, bv2, gameData.superbees, gameData.superbeeprice)"/>
               <h5 id="super-cost" style="color:#fda917">1000</h5>
 
               <!--superbee's honey per second-->
@@ -50,7 +51,7 @@
             
             <div class="mega-shop col-md-3">
               <h5 id="mega-amount" style="color:#050505">0</h5>
-              <button type="button" onclick="buy(ba3, bc3, bv3, megabees, megabeeprice)" class="btn btn-warning">Mega Bee</button>
+              <img src="/assets/img/megabee.png"  onclick="buy(ba3, bc3, bv3, gameData.megabees, gameData.megabeeprice)"/>
               <h5 id="mega-cost" style="color:#fda917">12500</h5>
 
               <!--megabee's honey per second-->
@@ -59,7 +60,7 @@
 
             <div class="uber-shop col-md-3">
               <h5 id="uber-amount" style="color:#050505">0</h5>
-              <button type="button" onclick="buy(ba4, bc4, bv4, uberbees, uberbeeprice)" class="btn btn-danger">Uber Bee</button>
+              <img src="/assets/img/ultrabee.png" onclick="buy(ba4, bc4, bv4, gameData.uberbees, gameData.uberbeeprice)"/>
               <h5 id="uber-cost" style="color:#fda917">750000</h5>
 
               <!--ultrabee's honey per second-->
@@ -70,11 +71,11 @@
           <!--money shop-->
           <div class="row pt-5 justify-content-center">
             <div class="jar-shop col-md-4">
-              <button type="button" onclick="buyJar(jarprice)" class="btn btn-dark">Buy Jar</button>
+              <button type="button" onclick="buyJar(gameData.jarprice)" class="btn btn-dark">Buy Jar</button>
               <h5 id="jar-amount">0</h5>
             </div>
             <div class="col-md-4">
-              <h3 id="sell-value">300</h3>
+              <h3 id="sell-value" style="color:#059b05">300</h3>
               <button type="button" onclick="sellHoney()" class="btn btn-success">Sell Honey</button>
             </div>
             <div class="honey-shop col-md-4">
@@ -90,25 +91,25 @@
           <div class="row justify-content-center">
             <div class="col-md-3">
               <h5 id="click-multiplier" style="color:#454545">0</h5>
-              <button type="button" onclick="buyUpgrade(cm, cmc, clickmultiplier, clickmultiplierprice)" class="btn btn-info">Click Multiplier</button>
+              <button type="button" onclick="buyUpgrade(cm, cmc, gameData.clickmultiplier, gameData.clickmultiplierprice)" class="btn btn-info">Click Multiplier</button>
               <h5 id="click-multiplier-cost" style="color:#059b05">200</h5>
             </div>
   
             <div class="col-md-3">
               <h5 id="honey-value" style="color:#454545">0</h5>
-              <button type="button" onclick="buyUpgrade(hv, hvc, honeyvalue, honeyvalueprice)"class="btn btn-info">Honey Value</button>
+              <button type="button" onclick="buyUpgrade(hv, hvc, gameData.honeyvalue, gameData.honeyvalueprice)"class="btn btn-info">Honey Value</button>
               <h5 id="honey-value-cost" style="color:#059b05">2500</h5>
             </div>
             
-            <div class="col-md-3">
+            <!-- <div class="col-md-3">
               <h5 id="bee-discount" style="color:#454545">0</h5>
-              <button type="button" onclick="buyUpgrade(bd, bdc, beediscount, beediscountprice)" class="btn btn-info">Bee Discount %</button>
+              <button type="button" onclick="buyUpgrade(bd, bdc, gameData.beediscount, gameData.beediscountprice)" class="btn btn-info">Bee Discount %</button>
               <h5 id="bee-discount-cost" style="color:#059b05">30000</h5>
-            </div>
+            </div> -->
 
             <div class="uber-shop col-md-3">
               <h5 id="jar-multiplier" style="color:#454545">0</h5>
-              <button type="button" onclick="buyUpgrade(jm, jmc, jarmultiplier, jarmultiplierprice)"class="btn btn-info">Jar Multiplier</button>
+              <button type="button" onclick="buyUpgrade(jm, jmc, gameData.jarmultiplier, gameData.jarmultiplierprice)"class="btn btn-info">Jar Multiplier</button>
               <h5 id="jar-multiplier" style="color:#059b05">750000</h5>
             </div>
           </div>

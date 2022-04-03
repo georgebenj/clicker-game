@@ -13,3 +13,17 @@
 .beehive:active{
   transform: scale(0.9)
 }
+
+img{
+  width: 75px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.35s
+}
+
+img:hover{
+  transform: scale(1.05)
+}
+img:active{
+  transform: scale(0.9)
+}

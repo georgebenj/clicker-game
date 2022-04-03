@@ -2,41 +2,59 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-var score = 0;
-var money = 1000;
-var perSecond = 0;
-var value = 0;
-//shop items
-var bees = 0;
-var superbees = 0;
-var megabees = 0;
-var uberbees = 0;
-//shop prices
-var beeprice = 75;
-var superbeeprice = 1000;
-var megabeeprice = 12500;
-var uberbeeprice = 750000;
-//bee values
-var beevalue = 2;
-var superbeevalue = 30;
-var megabeevalue = 400;
-var uberbeevalue = 8000;
-//upgrades
-var clickmultiplier = 1;
-var honeyvalue = 300;
-var beediscount = 0;
-var jarmultiplier = 1;
-//upgrade prices
-var clickmultiplierprice = 200;
-var honeyvalueprice = 2500;
-var beediscountprice = 30000;
-var jarmultiplierprice = 750000
 
-//jar shop
-var jars = 0;
-var honeyjars = 0;
-var jarprice = 50;
-var honeyprice = 1000;
+
+  if(localStorage.getItem("gameData")){
+    gameData = JSON.parse(localStorage.getItem("gameData"))
+  } else {
+    gameData = {
+      "score" : 0,
+      "money" : 100,
+      "perSecond" : 0,
+      "value" : 0,
+      //shop items
+      "bees" : 0,
+      "superbees" : 0,
+      "megabees" : 0,
+      "uberbees" : 0,
+      //shop prices
+      "beeprice" : 75,
+      "superbeeprice" : 1000,
+      "megabeeprice" : 12500,
+      "uberbeeprice" : 750000,
+      //bee values
+      "beevalue" : 2,
+      "superbeevalue" : 30,
+      "megabeevalue" : 400,
+      "uberbeevalue" : 8000,
+      //upgrades
+      "clickmultiplier" : 1,
+      "honeyvalue" : 300,
+      "beediscount" : 0.5,
+      "jarmultiplier" : 1,
+      //upgrade prices
+      "clickmultiplierprice" : 200,
+      "honeyvalueprice" : 2500,
+      "beediscountprice" : 30000,
+      "jarmultiplierprice" : 750000,
+    
+      //jar shop
+      "jars" : 0,
+      "honeyjars" : 0,
+      "jarprice" : 50,
+      "honeyprice" : 1000
+    };
+  }
+
+  window.onload = function(){
+    ps.innerHTML = gameData.perSecond + "/s"
+    document.getElementById("score").innerHTML = Math.round(gameData.score) + " honey"
+
+  };
+
+
+
+
 
 var ps = document.getElementById("perSecond")
 
@@ -73,53 +91,64 @@ var bdc = document.getElementById("bee-discount-cost")
 var jm = document.getElementById("jar-multiplier")
 var jmc = document.getElementById("jar-multiplier-cost")
 
-
-function makeHoney(){
-  score = score + clickmultiplier
-  document.getElementById("score").innerHTML = Math.round(score) + " honey"
+function saveGame(saveData){
+  localStorage.setItem("gameData", JSON.stringify(saveData))
 }
 
-setInterval(function(){
-  score = score + perSecond
 
-  ps.innerHTML = perSecond + "/s"
-  document.getElementById("score").innerHTML = Math.round(score) + " honey"
+function makeHoney(){
+  
+  gameData.score = gameData.score + gameData.clickmultiplier
+  document.getElementById("score").innerHTML = Math.round(gameData.score) + " honey"
+
+}
+
+//Runs every 1000ms (1 Second)
+setInterval(function(){
+  saveGame(gameData) 
+  gameData.score = gameData.score + gameData.perSecond
+  
+
+  ps.innerHTML = gameData.perSecond + "/s"
+  document.getElementById("score").innerHTML = Math.round(gameData.score) + " honey"
+
+
 }, 1000) //1000ms = 1s
 
 function buy(a, b, c, item, price){
-  if(score >= price){
-    score = score - price;
+  if(gameData.score >= price){
+    gameData.score = gameData.score - price;
     price = Math.round(price + price * 0.15);
 
     switch(a){
       case ba1:
-        bees++
-        beeprice = price;
-        perSecond = perSecond + beevalue
-        value = bees * beevalue
+        gameData.bees++
+        gameData.beeprice = price;
+        gameData.perSecond = gameData.perSecond + gameData.beevalue
+        value = gameData.bees * gameData.beevalue
         break;
       case ba2:
-        superbees++
-        superbeeprice = price;
-        perSecond = perSecond + superbeevalue
-        value = superbees * superbeevalue
+        gameData.superbees++
+        gameData.superbeeprice = price;
+        gameData.perSecond = gameData.perSecond + gameData.superbeevalue
+        value = gameData.superbees * gameData.superbeevalue
         break;
       case ba3:
-        megabees++
-        megabeeprice = price;
-        perSecond = perSecond + megabeevalue
-        value = megabees * megabeevalue
+        gameData.megabees++
+        gameData.megabeeprice = price;
+        gameData.perSecond = gameData.perSecond + gameData.megabeevalue
+        value = gameData.megabees * gameData.megabeevalue
         break;
       case ba4:
-        uberbees++
-        uberbeeprice = price;
-        perSecond = perSecond + uberbeevalue
-        value = uberbees * uberbeevalue
+        gameData.uberbees++
+        gameData.uberbeeprice = price;
+        gameData.perSecond = gameData.perSecond + gameData.uberbeevalue
+        value = gameData.uberbees * gameData.uberbeevalue
         break;
     }
 
-    document.getElementById("score").innerHTML = Math.round(score) + " honey"
-    ps.innerHTML = perSecond + "/s"
+    document.getElementById("score").innerHTML = Math.round(gameData.score) + " honey"
+    ps.innerHTML = gameData.perSecond + "/s"
     a.innerHTML = item + 1
     b.innerHTML = price
     c.innerHTML = value
@@ -147,44 +176,44 @@ function buy(a, b, c, item, price){
 }
 
 function buyJar(price){
-  if(money >=price){
-    money = money - price;
+  if(gameData.money >=price){
+    gameData.money = gameData.money - price;
     price = Math.round(price + price * 0.10);
 
-    jars = jars + jarmultiplier;
-    document.getElementById("money").innerHTML = Math.round(money) + "₲";
-    ja.innerHTML = jars;
+    gameData.jars = gameData.jars + gameData.jarmultiplier;
+    document.getElementById("money").innerHTML = Math.round(gameData.money) + "₲";
+    ja.innerHTML = gameData.jars;
   } else { 
     alert("Insufficient money")
   }
 }
 
 function craftJarOfHoney(){
-  if(score >= honeyprice && jars > 0){
-    score = score - honeyprice;
-    honeyprice = Math.round(honeyprice + honeyprice * 0.10);
-    jars = jars - 1;
-    honeyjars = honeyjars + 1;
+  if(gameData.score >= gameData.honeyprice && gameData.jars > 0){
+    gameData.score = gameData.score - gameData.honeyprice;
+    gameData.honeyprice = Math.round(gameData.honeyprice + gameData.honeyprice * 0.10);
+    gameData.jars = gameData.jars - 1;
+    gameData.honeyjars = gameData.honeyjars + 1;
     
-    document.getElementById("score").innerHTML = Math.round(score) + " honey"
+    document.getElementById("score").innerHTML = Math.round(gameData.score) + " honey"
     jha.innerHTML = honeyjars;
     ja.innerHTML = jars;
     
-  }   else if(jars < 1){
+  }   else if(gameData.jars < 1){
     alert("You need a Jar to craft that!")
-  } else if(score < honeyprice){
+  } else if(gameData.score < gameData.honeyprice){
     alert("You don't have enough Honey!")
   }
 
 }
 
 function sellHoney(){
-  if(honeyjars > 0){
-    honeyjars = honeyjars - 1;
-    money = money + honeyvalue;
+  if(gameData.honeyjars > 0){
+    gameData.honeyjars = gameData.honeyjars - 1;
+    gameData.money = gameData.money + gameData.honeyvalue;
 
-    document.getElementById("money").innerHTML = Math.round(money) + "₲";
-    jha.innerHTML = honeyjars;
+    document.getElementById("money").innerHTML = Math.round(gameData.money) + "₲";
+    jha.innerHTML = gameData.honeyjars;
 
   } else { 
     alert("Insufficient money")
@@ -192,34 +221,34 @@ function sellHoney(){
 }
 
 function buyUpgrade(a, b, upgrade, price){
-  if(money >= price){
-    money = money - price;
+  if(gameData.money >= price){
+    gameData.money = gameData.money - price;
     price = Math.round(price + price * 0.15)
     steve = upgrade
     switch(upgrade){
-      case clickmultiplier:
-        clickmultiplier = clickmultiplier + 1;
-        steve = clickmultiplier
+      case gameData.clickmultiplier:
+        gameData.clickmultiplier = gameData.clickmultiplier + 1;
+        steve = gameData.clickmultiplier
         break;
-      case honeyvalue:
-        honeyvalue = Math.round(honeyvalue + honeyvalue * 0.2)
-        document.getElementById("sell-value").innerHTML = honeyvalue
-        steve = honeyvalue
+      case gameData.honeyvalue:
+        gameData.honeyvalue = Math.round(gameData.honeyvalue + gameData.honeyvalue * 0.2)
+        document.getElementById("sell-value").innerHTML = gameData.honeyvalue
+        steve = gameData.honeyvalue
         break;
-      case beediscount:
-        beediscount = beediscount + beediscount * 0.1
-        upgrade = beediscount;
-        steve = beediscount
+      case gameData.beediscount:
+        gameData.beediscount = gameData.beediscount + gameData.beediscount * 0.1
+        upgrade = gameData.beediscount;
+        steve = gameData.beediscount
         break;
-      case jarmultiplier:
-        jarmultiplier = jarmultiplier + 1
-        upgrade = jarmultiplier;
-        steve = jarmultiplier
+      case gameData.jarmultiplier:
+        gameData.jarmultiplier = gameData.jarmultiplier + 1
+        upgrade = gameData.jarmultiplier;
+        steve = gameData.jarmultiplier
         break;
     }
 
 
-    document.getElementById("money").innerHTML = Math.round(money) + "₲";
+    document.getElementById("money").innerHTML = Math.round(gameData.money) + "₲";
 
     a.innerHTML = steve 
     b.innerHTML = price
