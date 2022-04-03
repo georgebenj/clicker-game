@@ -1,0 +1,15 @@
+.beehive{
+  padding: 10%;
+  width: 50%;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.35s
+}
+
+.beehive:hover{
+  transform: scale(1.1)
+}
+
+.beehive:active{
+  transform: scale(0.9)
+}
